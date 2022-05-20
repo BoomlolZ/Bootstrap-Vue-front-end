@@ -109,35 +109,60 @@ export default {
               // }
     },
     async EditUser(value) {
-      const users = this.users
-        // console.log(users)
-        if (value.p_username == '') {
-          alert("Username required / Username can't be null")
-          console.log("ERROR: Username required")
-        } else {
-          for (let i = 0; i < users.length; i++) {
-            // console.log(users[i].username)
-            if ((value.p_username === users[i].username)) {
-              // console.log("error")
-              alert("username already exits")
-              break;
-            }else{
-              // console.log('success');
-              const user = await axios.put("http://localhost:3333/user",
-              {
+      const user = await axios.put("http://localhost:3333/user",
+      {
                 id: value.id,
                 fname: value.p_fname,
                 lname: value.p_lname,
                 username: value.p_username,
                 email: value.p_email,
                 avatar: value.p_avatar,
-              });
-              if (user.status == "200") {
+      });
+              console.log(user.data.message)
+              console.log('success');
+              if (user.data.status == "error1") {
+                alert(user.data.message)
+              } else {
+              if (user.data.status == "ok") {
+                alert(user.data.message)
                 this.getData();
+              }else{
+                alert(user.data.message)
               }
-            }
-          }
-        }
+              }
+
+
+
+
+      // const users = this.users
+      //   // console.log(users)
+      //   if (value.p_username == '') {
+      //     alert("Username required / Username can't be null")
+      //     console.log("ERROR: Username required")
+      //   } else {
+      //     for (let i = 0; i < users.length; i++) {
+      //       // console.log(users[i].username)
+      //       if ((value.p_username === users[i].username)) {
+      //         // console.log("error")
+      //         alert("username already exits")
+      //         break;
+      //       }else{
+      //         // console.log('success');
+      //         const user = await axios.put("http://localhost:3333/user",
+      //         {
+      //           id: value.id,
+      //           fname: value.p_fname,
+      //           lname: value.p_lname,
+      //           username: value.p_username,
+      //           email: value.p_email,
+      //           avatar: value.p_avatar,
+      //         });
+      //         if (user.status == "200") {
+      //           this.getData();
+      //         }
+      //       }
+      //     }
+      //   }
       },
 
       
