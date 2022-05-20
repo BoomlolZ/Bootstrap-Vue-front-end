@@ -79,27 +79,19 @@ export default {
       return users
     },
     async saveUser(value) {
-        const users = this.users
-        // console.log(users)
-        if (value.username == '') {
-          alert("Username required / Username can't be null")
-          console.log("ERROR: Username required")
-        } else {
-          for (let i = 0; i < users.length; i++) {
-            console.log(users[i].username)
-            if ((value.username == users[i].username)) {
-              console.log("error")
-              alert("username already exits")
-            }else{
-              console.log('success');
               const user = await axios.post("http://localhost:3333/user",value);
-              if (user.status == "200") {
+              console.log(user.data.message)
+              console.log('success');
+              if (user.data.status == "error1") {
+                alert(user.data.message)
+              } else {
+              if (user.data.status == "ok") {
+                alert(user.data.message)
                 this.getData();
+              }else{
+                alert(user.data.message)
               }
-            }
-          }
-        }
-        
+              }
     },
     async EditUser(value) {
       const users = this.users
@@ -113,6 +105,7 @@ export default {
             if ((value.p_username === users[i].username)) {
               // console.log("error")
               alert("username already exits")
+              break;
             }else{
               // console.log('success');
               const user = await axios.put("http://localhost:3333/user",
