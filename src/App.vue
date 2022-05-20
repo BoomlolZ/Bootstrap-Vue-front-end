@@ -79,19 +79,34 @@ export default {
       return users
     },
     async saveUser(value) {
-              const user = await axios.post("http://localhost:3333/user",value);
-              console.log(user.data.message)
-              console.log('success');
-              if (user.data.status == "error1") {
-                alert(user.data.message)
-              } else {
-              if (user.data.status == "ok") {
-                alert(user.data.message)
-                this.getData();
-              }else{
-                alert(user.data.message)
-              }
-              }
+      await axios.post("http://localhost:3333/user",value)
+      .then(response => 
+        {
+          if (response.data.status == "error1") {
+            alert(response.data.message)
+          } else {
+          if (response.data.status == "ok") {
+            alert(response.data.message)
+            this.getData();
+          }else{
+            alert(response.data.message)
+          }
+          }
+        }
+      );
+              // const user = await axios.post("http://localhost:3333/user",value);
+              // console.log(user.data.message)
+              // console.log('success');
+              // if (user.data.status == "error1") {
+              //   alert(user.data.message)
+              // } else {
+              // if (user.data.status == "ok") {
+              //   alert(user.data.message)
+              //   this.getData();
+              // }else{
+              //   alert(user.data.message)
+              // }
+              // }
     },
     async EditUser(value) {
       const users = this.users
