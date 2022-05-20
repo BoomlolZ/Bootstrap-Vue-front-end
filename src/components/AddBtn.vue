@@ -25,20 +25,26 @@
       <b-form-input v-model="avatar" placeholder="Enter your Avatar"></b-form-input>
       <template #modal-footer="{ hide }">
         <b-button  variant="danger" class="mt-3" @click="clear();hide()">Cancel</b-button>
-        <b-button  variant="success" class="mt-3" @click="$emit('save',saveData());clear();hide()">Save</b-button>
+        <b-button v-b-modal.modal-multi-3 variant="success" class="mt-3" @click="$emit('save',saveData());hide();clear()">Save</b-button>
       </template>
     </b-modal>
+     <!-- <b-modal 
+     hide-header-close 
+     id="modal-multi-3" 
+     size="sm" title="Thank you!" 
+     header-bg-variant="success"
+     header-text-variant="white"
+     ok-only>
+    <p class="my-1">Create success!</p>
+  </b-modal> -->
   </div>
 </template>
 <script>
 
-import useValidate from '@vuelidate/core'
-import { required } from '@vuelidate/validators'
 export default {
   name: "AddBtn",
   data() {
     return {
-      v$: useValidate(),
       fname: "",
       lname: "",
       username: "",
@@ -48,22 +54,15 @@ export default {
   },
   validations(){
     return {
-      fname: { required },
-      lname: { required },
-      username: { required },
-      email: { required },
-      avatar: { required },
-
+      fname:"",
+      lname: "",
+      username: "",
+      email: "",
+      avatar: "",
     }
   },
   methods: {
     saveData() {
-      // // this.v$.$validate()
-      // if (!this.v$.error) {
-      //   alert('Form create success.')
-      // } else{
-      //   alert('Form create  Not success.')
-      // }
       const data = {
         fname: this.fname,
         lname: this.lname,

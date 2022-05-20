@@ -70,49 +70,51 @@ export default {
   methods: {
     async getData() {
       const users = await axios.get("http://localhost:3333/user")
+      // console.log(users.daata.length)
       if (users.status == "200") {
         this.users = users.data;
       } else {
         console.log(users);
       }
       return users
-      
     },
     async saveUser(value) {
         const users = this.users
         // console.log(users)
         if (value.username == '') {
-          alert("username required")
-          console.log("username required")
+          alert("Username required / Username can't be null")
+          console.log("ERROR: Username required")
         } else {
           for (let i = 0; i < users.length; i++) {
             console.log(users[i].username)
-            if ((value.username === users[i].username)) {
+            if ((value.username == users[i].username)) {
               console.log("error")
               alert("username already exits")
             }else{
               console.log('success');
-              await axios.post("http://localhost:3333/user",value);
+              const user = await axios.post("http://localhost:3333/user",value);
+              if (user.status == "200") {
+                this.getData();
+              }
             }
           }
         }
-      this.getData()
         
     },
     async EditUser(value) {
       const users = this.users
         // console.log(users)
         if (value.p_username == '') {
-          alert("username required")
-          console.log("username required")
+          alert("Username required / Username can't be null")
+          console.log("ERROR: Username required")
         } else {
           for (let i = 0; i < users.length; i++) {
-            console.log(users[i].username)
+            // console.log(users[i].username)
             if ((value.p_username === users[i].username)) {
-              console.log("error")
+              // console.log("error")
               alert("username already exits")
             }else{
-              console.log('success');
+              // console.log('success');
               const user = await axios.put("http://localhost:3333/user",
               {
                 id: value.id,
